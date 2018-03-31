@@ -9,8 +9,8 @@ namespace FileSorting.Filler
 #if DEBUG
             args = new[]
             {
+                100000.ToString(),
                 100.ToString(),
-                10.ToString(),
                 "text.txt"
             };
 #endif

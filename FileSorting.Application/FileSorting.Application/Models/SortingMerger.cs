@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FileSorting.Application.Models
@@ -39,6 +40,8 @@ namespace FileSorting.Application.Models
             if (nextValue == null)
             {
                 _readers.Remove(minKey.Key);
+
+                Console.WriteLine($"Readers count {_readers.Count}");
             }
             else
             {

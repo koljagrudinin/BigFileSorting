@@ -25,7 +25,7 @@ namespace FileSorting.Application.Models
                 CurrentValue = _fileReader.ReadLine();
                 return;
             }
-
+            
             CurrentValue = null;
         }
 

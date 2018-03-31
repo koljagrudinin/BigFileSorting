@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using FileSorting.Application.Sagas;
 
 namespace FileSorting.Application
@@ -23,7 +24,7 @@ namespace FileSorting.Application
                 return;
             }
 
-            var folderName = "temp";
+            var folderName = Path.Combine("bin", "temp");
 
             new FileSorterSaga().SortFile(args[0], folderName);
         }
