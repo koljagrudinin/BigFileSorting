@@ -1,0 +1,6 @@
+/Users/nikolaygrydinin/Projects/BigFileSorting/FileSorting.Application/FileSorting.Application/bin/Debug/netcoreapp2.0/FileSorting.Application.deps.json
+/Users/nikolaygrydinin/Projects/BigFileSorting/FileSorting.Application/FileSorting.Application/obj/Debug/netcoreapp2.0/FileSorting.Application.csproj.CoreCompileInputs.cache
+/Users/nikolaygrydinin/Projects/BigFileSorting/FileSorting.Application/FileSorting.Application/obj/Debug/netcoreapp2.0/FileSorting.Application.AssemblyInfoInputs.cache
+/Users/nikolaygrydinin/Projects/BigFileSorting/FileSorting.Application/FileSorting.Application/obj/Debug/netcoreapp2.0/FileSorting.Application.AssemblyInfo.cs
+/Users/nikolaygrydinin/Projects/BigFileSorting/FileSorting.Application/FileSorting.Application/obj/Debug/netcoreapp2.0/FileSorting.Application.dll
+/Users/nikolaygrydinin/Projects/BigFileSorting/FileSorting.Application/FileSorting.Application/obj/Debug/netcoreapp2.0/FileSorting.Application.pdb
