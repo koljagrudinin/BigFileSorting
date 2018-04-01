@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 
-namespace FileSorting.Filler
+namespace FileSorting.Filler.Services
 {
-    public class StringGenerator
+    public class StringGenerator: IStringGenerator
     {
         private readonly Random _rand = new Random();
         private readonly int _aNumber = (int) 'a';

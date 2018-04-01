@@ -1,39 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using FileSorting.Application.Models;
+using FileSorting.Domain.Interfaces;
+using FileSorting.Domain.Models;
 
-namespace FileSorting.Application.Services
+namespace FileSorting.Domain.Services
 {
-    public class FileSplitterService
+    public class FileSplitterService: IFileSplitterService
     {
-        public SplitFileResult SplitFile(string fileName, string folderName)
+        public SplitFileResult SplitFile(long memorySize, string fileName, string folderName)
         {
             if (!File.Exists(fileName))
             {
                 throw new Exception($"Файл {fileName} не найден");
             }
-
-            var memorySize = GetMemorySize();
-            
-            return SplitFile(fileName, folderName, memorySize);
-        }
-
-        private SplitFileResult SplitFile(string fileName, string folderName, long memorySize)
-        {
+         
             double fileSize = 0;
-            
+
             var newFilePaths = new List<string>();
 
             string notAddedString = null;
-            
+
             using (var reader = new StreamReader(fileName))
             {
                 while (!reader.EndOfStream)
                 {
-                    var sortedResult = ReadAndSortStrings(reader, memorySize, ref fileSize, notAddedString);
+                    var sortedResult = ReadAndSortStrings(reader, memorySize, notAddedString);
 
                     notAddedString = sortedResult.NotAddedString;
+
+                    fileSize += sortedResult.ReadedBytesNumber;
                     
                     var newFileName = WriteNewFile(sortedResult.Strings, folderName);
 
@@ -42,7 +38,7 @@ namespace FileSorting.Application.Services
 
                 reader.Close();
             }
-            
+
             return new SplitFileResult
             {
                 FileSize = fileSize,
@@ -50,74 +46,51 @@ namespace FileSorting.Application.Services
             };
         }
 
-        private long GetMemorySize()
-        {
-            var result = GC.GetTotalMemory(false);
-
-            if (result == 0)
-            {
-                throw new Exception("Возникла непредвиденная ошибка");
-            }
-
-#if DEBUG
-            result = 2000;   
-#endif
-            
-            return result;
-        }
-
-        class ReadAndSortResult
-        {
-           public  IEnumerable<string> Strings { get; set; }
-            public string NotAddedString { get; set; }
-        }
-        
         private ReadAndSortResult ReadAndSortStrings(
-            StreamReader reader, 
-            long memorySize, 
-            ref double fileSize,
+            StreamReader reader,
+            long memorySize,
             string notAddedString)
         {
+            long readedBytesNumber = 0;
+            
             var newFileString = new SortedSet<string>();
-
-            var returningFileArraySize = 0;
 
             if (!string.IsNullOrEmpty(notAddedString))
             {
                 newFileString.Add(notAddedString);
-                returningFileArraySize += notAddedString.Length;
+                readedBytesNumber += notAddedString.Length;
             }
-            
 
             while (!reader.EndOfStream)
             {
-                var s = reader.ReadLine();
+                var readedString = reader.ReadLine();
 
-                if (s == null)
+                if (readedString == null)
                 {
                     break;
                 }
 
-                if (returningFileArraySize + s.Length > memorySize)
+                readedBytesNumber += readedString.Length;
+
+                if (readedBytesNumber > memorySize)
                 {
                     return new ReadAndSortResult
                     {
                         Strings = newFileString,
-                        NotAddedString = s
+                        NotAddedString = readedString,
+                        ReadedBytesNumber = readedBytesNumber
                     };
                 }
 
-                newFileString.Add(s);
-
-                fileSize += s.Length;
-                returningFileArraySize += s.Length;
+                newFileString.Add(readedString);
             }
 
             return new ReadAndSortResult
             {
                 Strings = newFileString,
-                NotAddedString = null
-            };;
+                NotAddedString = null,
+                ReadedBytesNumber = readedBytesNumber
+            };
         }
 
         private string WriteNewFile(IEnumerable<string> newFileStrings, string folderName)
@@ -133,7 +106,6 @@ namespace FileSorting.Application.Services
 
             return newFileName;
         }
-
 
         public void DeleteFolder(string folderName)
         {

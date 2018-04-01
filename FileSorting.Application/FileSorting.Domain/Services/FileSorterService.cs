@@ -1,9 +1,10 @@
 ﻿using System.IO;
-using FileSorting.Application.Models;
+using FileSorting.Domain.Interfaces;
+using FileSorting.Domain.Models;
 
-namespace FileSorting.Application.Services
+namespace FileSorting.Domain.Services
 {
-    public class FileSorterService
+    public class FileSorterService: IFileSorterService
     {
         public void MergeFilesToOne(string fileName, SplitFileResult splitResult)
         {

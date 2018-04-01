@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FileSorting.Application.Models
+namespace FileSorting.Domain.Models
 {
     public class SplitFileResult
     {

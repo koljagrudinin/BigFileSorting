@@ -6,11 +6,6 @@
       <e p="FileSorting.Application" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="FileSorting.Application.csproj" t="IncludeRecursive" />
-        <e p="Models" t="Include">
-          <e p="SortingFile.cs" t="Include" />
-          <e p="SortingMerger.cs" t="Include" />
-          <e p="SplitFileResult.cs" t="Include" />
-        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.0" t="Include">
@@ -19,6 +14,29 @@
           </e>
         </e>
         <e p="Program.cs" t="Include" />
+      </e>
+      <e p="FileSorting.Application.sln" t="IncludeFlat" />
+      <e p="FileSorting.Domain" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="FileSorting.Domain.csproj" t="IncludeRecursive" />
+        <e p="Interfaces" t="Include">
+          <e p="IFileSorterSaga.cs" t="Include" />
+          <e p="IFileSorterService.cs" t="Include" />
+          <e p="IFileSplitterService.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="ReadAndSortResult.cs" t="Include" />
+          <e p="SortingFile.cs" t="Include" />
+          <e p="SortingMerger.cs" t="Include" />
+          <e p="SplitFileResult.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.0" t="Include">
+              <e p="FileSorting.Domain.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="Sagas" t="Include">
           <e p="FileSorterSaga.cs" t="Include" />
         </e>
@@ -26,13 +44,14 @@
           <e p="FileSorterService.cs" t="Include" />
           <e p="FileSplitterService.cs" t="Include" />
         </e>
-        <e p="text.txt" t="Include" />
       </e>
-      <e p="FileSorting.Application.sln" t="IncludeFlat" />
       <e p="FileSorting.Filler" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="FileGenerator.cs" t="Include" />
         <e p="FileSorting.Filler.csproj" t="IncludeRecursive" />
+        <e p="Interfaces" t="Include">
+          <e p="IFileGenerator.cs" t="Include" />
+          <e p="IStringGenerator.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.0" t="Include">
@@ -41,8 +60,10 @@
           </e>
         </e>
         <e p="Program.cs" t="Include" />
-        <e p="StringGenerator.cs" t="Include" />
-        <e p="text.txt" t="Include" />
+        <e p="Services" t="Include">
+          <e p="FileGenerator.cs" t="Include" />
+          <e p="StringGenerator.cs" t="Include" />
+        </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>

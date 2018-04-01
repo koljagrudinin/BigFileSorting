@@ -1,17 +1,17 @@
 ﻿using System;
 using System.IO;
 
-namespace FileSorting.Filler
+namespace FileSorting.Filler.Services
 {
-    public class FileGenerator
+    public class FileGenerator: IFileGenerator
     {
-        private readonly StringGenerator _stringGenerator;
+        private readonly IStringGenerator _stringGenerator;
 
-        public FileGenerator()
+        public FileGenerator(IStringGenerator stringGenerator)
         {
-            _stringGenerator = new StringGenerator();
+            _stringGenerator = stringGenerator;
         }
-        
+
         public void Generate(double stringNumber, int stringLength, string filePath)
         {
             if (File.Exists(filePath))
