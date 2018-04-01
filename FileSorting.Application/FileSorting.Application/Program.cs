@@ -12,13 +12,14 @@ namespace FileSorting.Application
     {
         static void Main(string[] args)
         {
+            #if DEBUG
             
-
             args = new[]
             {
                 "bin/text.txt"
             };
             
+            #endif
           
             if (args == null || args.Length == 0)
             {
