@@ -53,11 +53,11 @@ namespace FileSorting.Domain.Services
         {
             long readedBytesNumber = 0;
             
-            var newFileString = new SortedSet<string>();
+            var newFileString = new SortedList<string, string>();
 
             if (!string.IsNullOrEmpty(notAddedString))
             {
-                newFileString.Add(notAddedString);
+                newFileString.Add(notAddedString, "");
                 readedBytesNumber += notAddedString.Length;
             }
 
@@ -76,18 +76,18 @@ namespace FileSorting.Domain.Services
                 {
                     return new ReadAndSortResult
                     {
-                        Strings = newFileString,
+                        Strings = newFileString.Keys,
                         NotAddedString = readedString,
                         ReadedBytesNumber = readedBytesNumber
                     };
                 }
 
-                newFileString.Add(readedString);
+                newFileString.Add(readedString, "");
             }
 
             return new ReadAndSortResult
             {
-                Strings = newFileString,
+                Strings = newFileString.Keys,
                 NotAddedString = null,
                 ReadedBytesNumber = readedBytesNumber
             };
