@@ -18,8 +18,24 @@ namespace FileSorting.Domain.Models
 
                 fileReader.GoToNextString();
 
-                _readers.Add(fileReader.GetCurrentValue(), fileReader);
+                var key = GetUniqueKey(fileReader.GetCurrentValue());
+
+                _readers.Add(key, fileReader);
             }
+        }
+
+        private string GetUniqueKey(string key)
+        {
+            var result = key;
+
+            var i = 0;
+
+            while (_readers.ContainsKey(result))
+            {
+                result = key + i++;
+            }
+
+            return result;
         }
 
         public string GetMin()
@@ -29,15 +45,17 @@ namespace FileSorting.Domain.Models
                 return null;
             }
 
-            var min = _readers[_readers.Keys.First()];
+            var key = _readers.Keys.First();
 
-            var result = min.GetCurrentValue();
+            var minValue = _readers[key];
+
+            var result = minValue.GetCurrentValue();
             
-            _readers.Remove(result);
+            _readers.Remove(key);
 
-            min.GoToNextString();
+            minValue.GoToNextString();
 
-            var nextValue = min.GetCurrentValue();
+            var nextValue = minValue.GetCurrentValue();
 
             if (nextValue == null)
             {
@@ -45,7 +63,7 @@ namespace FileSorting.Domain.Models
             }
             else
             {
-                _readers.Add(nextValue, min);
+                _readers.Add(GetUniqueKey(nextValue), minValue);
             }
 
             return result;
